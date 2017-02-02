@@ -5,6 +5,8 @@
  */
 package comp410;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author kailabillie
@@ -15,7 +17,15 @@ public class MazeGame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        GameFrame bf = new GameFrame();
+
+        bf.setTitle("Maze Game"); //sets the tile of the frame to space invaders
+        bf.setSize(600, 600); //sets the size of the window to 600 by 600
+        bf.setLocationRelativeTo(null);
+        bf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        bf.setVisible(true); //sets the visibiilty of the frame to true
+        
     }
     
 }
