@@ -11,14 +11,19 @@ package comp410;
  */
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -30,13 +35,25 @@ public class GamePanel extends JPanel implements KeyListener {
     Random rand = new Random();
 
     private StatusPanel statusPanel = new StatusPanel();
-    private int randomNumber = ((rand.nextInt(6) + 1) * 50);
+    private int randomNumber;
     private int count;
     int points = 0;
     boolean playing = false;
 
+    private ImageIcon icon;
+
     //constructor that sets the size and adds all the objects from the arraylist to the panel
     public GamePanel() {
+
+        String pathBegin = "/Users/kailabillie/NetBeansProjects/Comp410/src/comp410/Mazes/Maze";
+
+        randomNumber = rand.nextInt(10) + 1;
+
+        String pathEnd = ".png";
+
+        String chooseMaze = pathBegin + randomNumber + pathEnd;
+
+        icon = new ImageIcon(chooseMaze);
 
         setSize(600, 600);
 
@@ -52,6 +69,10 @@ public class GamePanel extends JPanel implements KeyListener {
         rand = new Random();
 
         this.setBorder(new javax.swing.border.LineBorder(Color.BLACK));
+
+        setOpaque(false);
+        
+        
     }
 
     //mwthods that allows to add the objects to the arraylist
@@ -66,7 +87,9 @@ public class GamePanel extends JPanel implements KeyListener {
     //paints all the objects that are visible in the arraylist 
     protected void paintComponent(Graphics g) {
 
-        super.paintComponent(g);
+        BufferedImage scaledImage = getScaledImage();
+
+        g.drawImage(scaledImage, 0, 0, null);
 
         for (GameObject obj : gameObjects) {
 
@@ -76,6 +99,8 @@ public class GamePanel extends JPanel implements KeyListener {
             }
 
         }
+
+        super.paintComponent(g);
 
     }
 
@@ -175,6 +200,15 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         playing = false;
         start();
+    }
+
+    private BufferedImage getScaledImage() {
+        BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = (Graphics2D) image.createGraphics();
+        g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+        g2d.drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(), null);
+
+        return image;
     }
 
 }

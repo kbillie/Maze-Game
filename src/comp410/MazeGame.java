@@ -18,13 +18,15 @@ public class MazeGame {
      */
     public static void main(String[] args) {
         
-        GameFrame bf = new GameFrame();
-
-        bf.setTitle("Maze Game"); //sets the tile of the frame to space invaders
-        bf.setSize(600, 600); //sets the size of the window to 600 by 600
-        bf.setLocationRelativeTo(null);
-        bf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        bf.setVisible(true); //sets the visibiilty of the frame to true
+       MainMenu mm = new MainMenu();
+        
+//        GameFrame bf = new GameFrame();
+//
+//        bf.setTitle("Maze Game"); //sets the tile of the frame to space invaders
+//        bf.setSize(600, 600); //sets the size of the window to 600 by 600
+//        bf.setLocationRelativeTo(null);
+//        bf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        bf.setVisible(true); //sets the visibiilty of the frame to true
         
     }
     

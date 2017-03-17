@@ -10,8 +10,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,12 +27,23 @@ public class GameFrame extends JFrame {
     //creates the panels and buttons that will be in the GameFrame
     JPanel commandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     JButton btnStart = new JButton("Start");
-    
+
     JButton btnExit = new JButton("Exit");
     private GamePanel gamePanel = new GamePanel();
     StatusPanel statusPanel = new StatusPanel();
+    Questions question = new Questions();
+    
+    JPanel top;
 
     public GameFrame() {
+
+        //randomMaze();
+        
+        setTitle("Maze Game"); //sets the tile of the frame to space invaders
+        setSize(600, 600); //sets the size of the window to 600 by 600
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true); //sets the visibiilty of the frame to true
 
         Container container = this.getContentPane();
 
@@ -41,7 +54,7 @@ public class GameFrame extends JFrame {
 
         //add buttons to command panel
         commandPanel.add(btnStart);
-        
+
         commandPanel.add(btnExit);
         btnExit.addActionListener(new CommandActionListener());
         btnStart.addActionListener(new CommandActionListener());
@@ -51,9 +64,16 @@ public class GameFrame extends JFrame {
         //the commandPanel holds the start, restart and exit buttons
         //the gamePanel holds the main part of the screen with the spaceship, aliens and lasercanon
         //the status panel holds the score
+        
+        top = new JPanel();
+        top.setLayout(new GridLayout(2,1,1,1));
+        top.add(statusPanel);
+        top.add(question);
+                
         container.add(commandPanel, BorderLayout.SOUTH);
         container.add(gamePanel, BorderLayout.CENTER);
-        container.add(statusPanel, BorderLayout.NORTH);
+        container.add(top, BorderLayout.NORTH);
+        //container.add(question, BorderLayout.NORTH);
 
         gamePanel.setStatusPanel(statusPanel);
 
@@ -84,11 +104,24 @@ public class GameFrame extends JFrame {
             } else if (btn.getText().equals("Start")) {
 
                 getGamePanel().start();
+                btnStart.setEnabled(false);
 
             }
 
         }
 
+    }
+    
+    public void randomMaze () {
+        File folder = null;
+        folder = new File("/Users/kailabillie/NetBeansProjects/Comp410/src/comp410/Mazes");
+        File[] listOfFiles = folder.listFiles();
+
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile() && (!listOfFile.getName().equals(".DS_Store"))) {
+                System.out.println(listOfFile.getName());
+            }
+        }
     }
 
 }

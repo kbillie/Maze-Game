@@ -26,7 +26,7 @@ public class Player extends GameObject {
         this.pnlHeight = pnlHeight;
         this.moveInc = moveInc;
         getLocation().x = pnlWidth / 2;
-        getLocation().y = pnlHeight - 125;
+        getLocation().y = pnlHeight - 130;
         setWidth(15);
         setHeight(15);
 
