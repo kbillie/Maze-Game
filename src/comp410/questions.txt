@@ -1,0 +1,79 @@
+Level 1 (True/False):
+
+
+1. 
+The new keyword is used to instantiate activation records on the runtime on the runtime  sack. 
+ False 
+2. 
+The this() call will invoke the no-arg constructor of a class.
+True
+3.  
+A single class can implement several classes.
+True
+4.
+A JLabel can be used to display an imageicon object.
+True
+
+
+Level 2 (Multiple Choice):
+
+1. 
+A class contract of a class consists of
+a. Public methods
+b. Private instance variables
+c. Private class variables
+d. Public constraints
+e. A,C,D
+f. A,D <-
+2.
+The scope of an instance variable:
+a. Is the entire class in which the instance variable is declared <-
+b. Is the same as a local variable
+c. Starts where the variables is declared and continues until the end of the class
+3. 
+An abstract class:
+Can have instance variables
+Can have constructors
+Can have concrete methods
+All of the above <-
+A and B
+A and C
+4.
+Which interface do the methods Mousedragged and Mousemoved belong to?
+a.Mouse Listener
+b.Mousemotionlistener
+c. Mouse <-
+d.Mouse Motion
+5.
+Which of the following can be operands of arithmetic operators?
+Numeric
+Boolean
+Characters
+Both Numeric & Characters <-
+6.
+Which of the following is a valid declaration of an object of class Box?
+Box obj = new Box(); <-
+Box obj = new Box;
+obj = new Box();
+new Box obj;
+
+
+Level 3 (Fill In the Blank)
+
+1.
+_______ is where a subclass is used where the superclass is expected.
+Polymorphism
+2.
+________ is a form of code reuse where properties and behaviors of one class are passed onto another class.
+inheritance  
+3.
+__________ stores local variables and parameters is pushed into the runtime stack when a method is called.
+Activation record
+4.
+_________ is declaring a method with the exact same signature as a method in a superclass.
+Overriding 
+5. _________ The type of method used to modify an encapsulated data field.
+Mutator
+6.
+____________ A series of instructions grouped together to  perform a function.
+Method 

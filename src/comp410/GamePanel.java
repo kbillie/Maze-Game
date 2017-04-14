@@ -10,6 +10,7 @@ package comp410;
  * @author kailabillie
  */
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -20,9 +21,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -40,25 +45,32 @@ public class GamePanel extends JPanel implements KeyListener {
     int points = 0;
     boolean playing = false;
 
-    private ImageIcon icon;
+    private BufferedImage icon;
+    BufferedImage scaledImage;
 
     //constructor that sets the size and adds all the objects from the arraylist to the panel
     public GamePanel() {
 
-        String pathBegin = "/Users/kailabillie/NetBeansProjects/Comp410/src/comp410/Mazes/Maze";
+        String pathBegin = "Maze";
 
         randomNumber = rand.nextInt(10) + 1;
 
         String pathEnd = ".png";
 
-        String chooseMaze = pathBegin + randomNumber + pathEnd;
+        String chooseMaze = "Mazes/" + pathBegin + randomNumber + pathEnd;
 
-        icon = new ImageIcon(chooseMaze);
+        try {
+            icon = javax.imageio.ImageIO.read(new File(chooseMaze));
+        } catch (IOException ex) {
+            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        setSize(600, 600);
+        setSize(500, 500);
+        setPreferredSize(new Dimension(500, 500));
 
         player = new Player(this.getWidth(), this.getHeight(), 10);
         addGameObject(player);
+        scaledImage = getScaledImage();
 
         //adds to the key listener to the panel
         addKeyListener(this);
@@ -71,11 +83,10 @@ public class GamePanel extends JPanel implements KeyListener {
         this.setBorder(new javax.swing.border.LineBorder(Color.BLACK));
 
         setOpaque(false);
-        
-        
+
     }
 
-    //mwthods that allows to add the objects to the arraylist
+    //methods that allows to add the objects to the arraylist
     public void addGameObject(GameObject go) {
 
         gameObjects.add(go);
@@ -87,7 +98,6 @@ public class GamePanel extends JPanel implements KeyListener {
     //paints all the objects that are visible in the arraylist 
     protected void paintComponent(Graphics g) {
 
-        BufferedImage scaledImage = getScaledImage();
 
         g.drawImage(scaledImage, 0, 0, null);
 
@@ -153,19 +163,57 @@ public class GamePanel extends JPanel implements KeyListener {
         //if the right key is pressed move the canon to the right
         if (code == KeyEvent.VK_RIGHT) {
             player.moveRight();
+            for (int x = 0; x < player.getWidth(); x++) {
+                for (int y = 0; y < player.getHeight(); y++) {
+                    if ((getRed(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getGreen(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getBlue(x + player.getLocation().x, y + player.getLocation().y) == 0)) {
+                        player.setLocation(player.getLocation());
+                        player.moveLeft();
+                        break;
+                    }
+                }
+            }
             repaint();
 
-            //if the left arrow key is pressed move the canon to the left
-        } else if (code == KeyEvent.VK_LEFT) {
+        } //if the left arrow key is pressed move the canon to the left
+        else if (code == KeyEvent.VK_LEFT) {
+
             player.moveLeft();
+            for (int x = 0; x < player.getWidth(); x++) {
+                for (int y = 0; y < player.getHeight(); y++) {
+                    if ((getRed(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getGreen(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getBlue(x + player.getLocation().x, y + player.getLocation().y) == 0)) {
+                        player.setLocation(player.getLocation());
+                        player.moveRight();
+                        break;
+                    }
+                }
+            }
             repaint();
         } else if (code == KeyEvent.VK_UP) {
+
             player.moveUp();
+            for (int x = 0; x < player.getWidth(); x++) {
+                for (int y = 0; y < player.getHeight(); y++) {
+                    if ((getRed(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getGreen(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getBlue(x + player.getLocation().x, y + player.getLocation().y) == 0)) {
+                        player.setLocation(player.getLocation());
+                        player.moveDown();
+                        break;
+                    }
+                }
+            }
             repaint();
         } else if (code == KeyEvent.VK_DOWN) {
-            player.moveDown();
-            repaint();
 
+            player.moveDown();
+            for (int x = 0; x < player.getWidth(); x++) {
+                for (int y = 0; y < player.getHeight(); y++) {
+                    if ((getRed(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getGreen(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getBlue(x + player.getLocation().x, y + player.getLocation().y) == 0)) {
+                        player.setLocation(player.getLocation());
+                        player.moveUp();
+                        break;
+                    }
+                }
+            }
+            repaint();
         }
 
     }
@@ -206,9 +254,21 @@ public class GamePanel extends JPanel implements KeyListener {
         BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = (Graphics2D) image.createGraphics();
         g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
-        g2d.drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(), null);
+        g2d.drawImage(icon, 0, 0, getWidth(), getHeight(), null);
 
         return image;
+    }
+
+    public int getRed(int x, int y) {
+        return (scaledImage.getRGB(x, y) >> 16) & 0xff;
+    }
+
+    public int getGreen(int x, int y) {
+        return (scaledImage.getRGB(x, y) >> 8) & 0xff;
+    }
+
+    public int getBlue(int x, int y) {
+        return scaledImage.getRGB(x, y) & 0xff;
     }
 
 }
