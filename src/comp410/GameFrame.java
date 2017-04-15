@@ -29,7 +29,6 @@ public class GameFrame extends JFrame {
 
     //creates the panels and buttons that will be in the GameFrame
     JPanel commandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    JButton btnStart = new JButton("Start");
 
     JButton btnExit = new JButton("Exit");
     private GamePanel gamePanel = new GamePanel();
@@ -40,8 +39,6 @@ public class GameFrame extends JFrame {
     JPanel center;
 
     public GameFrame() {
-
-        randomMaze();
 
         setTitle("Maze Game"); //sets the tile of the frame to space invaders
         //setSize(600, 600); //sets the size of the window to 600 by 600
@@ -57,11 +54,9 @@ public class GameFrame extends JFrame {
         setLayout(new BorderLayout());
 
         //add buttons to command panel
-        commandPanel.add(btnStart);
 
         commandPanel.add(btnExit);
         btnExit.addActionListener(new CommandActionListener());
-        btnStart.addActionListener(new CommandActionListener());
 
         //adds all the panels to the GameFrame
         //the commandPanel holds the start, restart and exit buttons
@@ -109,35 +104,9 @@ public class GameFrame extends JFrame {
 
             if (btn.getText().equals("Exit")) {
                 System.exit(0);
-            } else if (btn.getText().equals("Start")) {
-
-                getGamePanel().start();
-                btnStart.setEnabled(false);
-
-            }
+            } 
 
         }
 
     }
-
-    public void randomMaze() {
-        File folder = null;
-        //folder = new File("/Users/kailabillie/NetBeansProjects/Comp410/src/comp410/Mazes");
-        folder = new File("Mazes");
-        try {
-            System.out.println(folder.getCanonicalPath());
-        } catch (IOException ex) {
-            Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        File[] listOfFiles = folder.listFiles();
-
-        for (File listOfFile : listOfFiles) {
-            if (listOfFile.isFile() && (!listOfFile.getName().equals(".DS_Store"))) {
-                System.out.println(listOfFile.getName());
-            }
-        }
-    }
-    
-    
 }

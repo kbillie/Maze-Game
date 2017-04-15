@@ -226,30 +226,6 @@ public class GamePanel extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent e) {
     }
 
-    //starts the game
-    public void start() {
-        if (!playing) {
-            player = new Player(this.getWidth(), this.getHeight(), 10);
-            gameObjects.add(player);
-
-            playing = true;
-            points = 0;
-            requestFocus();
-            statusPanel.setPoints(points);
-
-        }
-    }
-
-    //sets the game back to the intial state that it originally was when the
-    //game began
-    public void restart() {
-        while (!gameObjects.isEmpty()) {
-            gameObjects.remove(0);
-        }
-        playing = false;
-        start();
-    }
-
     private BufferedImage getScaledImage() {
         BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = (Graphics2D) image.createGraphics();
