@@ -1,1 +1,7 @@
 How to Play:
+
+Use your keyboard arrow keys to navigate the player through the maze to
+find the correct answer to the questions. If you get stuck, find one of the clues in 
+the maze to give you a hint. There are multiple questions per level. Once you finish
+all the questions of one level, you may proceed to the next. There are three different 
+levels: Easy (True/False), Medium (Multiple Choice), and Hard (Fill in the Blank). 
