@@ -26,7 +26,7 @@ public class StatusPanel extends JPanel {
         
         this.gamePanel= gamePanel;
 
-        setSize(5, 100);
+        //setSize(5, 100);
         
         setLayout(new FlowLayout(FlowLayout.CENTER));
         

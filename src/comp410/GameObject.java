@@ -124,4 +124,6 @@ public abstract class GameObject {
         this.width = width;
     }
 
+    public abstract void draw(Graphics g, int x, int y);
+
 }

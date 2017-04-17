@@ -5,15 +5,23 @@
  */
 package comp410;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author kailabillie
  */
 public class Answers {
     
+    ArrayList<String> levelOneAnswers; 
+    ArrayList<String> levelTwoAnswers;
+    ArrayList<String> levelThreeAnswers;
+    
     public Answers() {
         
-        
+        levelOneAnswers = new ArrayList<String>();
+        levelTwoAnswers = new ArrayList<String>();
+        levelThreeAnswers = new ArrayList<String>();
         
     }
     
