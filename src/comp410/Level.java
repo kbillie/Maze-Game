@@ -23,6 +23,7 @@ public class Level extends JFrame {
     JButton mediumBtn = new JButton("Medium");
     JButton hardBtn = new JButton("Hard");
     JLabel label = new JLabel("Choose a level:");
+    Questions question = new Questions();
 
     public Level() {
         setTitle("Level Screen"); //sets the tile of the frame to space invaders
@@ -55,11 +56,16 @@ public class Level extends JFrame {
 
             if (btn.getText().equals("Easy")) {
                 GameFrame gf = new GameFrame();
-                
+                gf.questionPanel.Level1();  
+                gf.pack();
             } else if (btn.getText().equals("Medium")) {
                 GameFrame gf = new GameFrame();
+                 gf.questionPanel.Level2();
+                gf.pack();
             } else if (btn.getText().equals("Hard")) {
                 GameFrame gf = new GameFrame();
+                 gf.questionPanel.Level3();
+                gf.pack();
             }
 
         }

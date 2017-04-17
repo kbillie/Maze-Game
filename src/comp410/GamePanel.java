@@ -47,38 +47,20 @@ public class GamePanel extends JPanel implements KeyListener {
 
     private BufferedImage icon;
     BufferedImage scaledImage;
+    Questions ques = new Questions();
 
     //constructor that sets the size and adds all the objects from the arraylist to the panel
     public GamePanel() {
 
-        String pathBegin = "Maze";
-
-        randomNumber = rand.nextInt(10) + 1;
-
-        String pathEnd = ".png";
-
-        String chooseMaze = "Mazes/" + pathBegin + randomNumber + pathEnd;
-
-        try {
-            icon = javax.imageio.ImageIO.read(new File(chooseMaze));
-        } catch (IOException ex) {
-            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         setSize(500, 500);
         setPreferredSize(new Dimension(500, 500));
+        randomMaze();
 
         player = new Player(this.getWidth(), this.getHeight(), 10);
         addGameObject(player);
-        scaledImage = getScaledImage();
 
         //adds to the key listener to the panel
         addKeyListener(this);
-
-        //sets the panel tp focusable so that the key listener can work
-        setFocusable(true);
-
-        rand = new Random();
 
         this.setBorder(new javax.swing.border.LineBorder(Color.BLACK));
 
@@ -97,7 +79,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
     //paints all the objects that are visible in the arraylist 
     protected void paintComponent(Graphics g) {
-
 
         g.drawImage(scaledImage, 0, 0, null);
 
@@ -247,4 +228,27 @@ public class GamePanel extends JPanel implements KeyListener {
         return scaledImage.getRGB(x, y) & 0xff;
     }
 
+    public void randomMaze() {
+
+        String pathBegin = "Maze";
+
+        randomNumber = rand.nextInt(10) + 1;
+
+        String pathEnd = ".png";
+
+        String chooseMaze = "Mazes/" + pathBegin + randomNumber + pathEnd;
+
+        try {
+            icon = javax.imageio.ImageIO.read(new File(chooseMaze));
+        } catch (IOException ex) {
+            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        scaledImage = getScaledImage();
+        //sets the panel tp focusable so that the key listener can work
+        setFocusable(true);
+        requestFocus();
+
+        repaint();
+
+    }
 }

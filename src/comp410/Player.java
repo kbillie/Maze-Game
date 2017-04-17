@@ -12,7 +12,7 @@ package comp410;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Player extends GameObject {
+public class Player extends GameObject{
 
     private int pnlWidth;
     private int pnlHeight;
@@ -26,7 +26,7 @@ public class Player extends GameObject {
         this.pnlHeight = pnlHeight;
         this.moveInc = moveInc;
         getLocation().x = pnlWidth / 2;
-        getLocation().y = pnlHeight - 130;
+        getLocation().y = pnlHeight - pnlHeight / 10;
         setWidth(15);
         setHeight(15);
 
@@ -127,9 +127,9 @@ public class Player extends GameObject {
 
         getLocation().y += moveInc;
 
-//        if (getLocation().y - getHeight() >= pnlHeight) {
-//            getLocation().y = pnlHeight - getHeight();
-//        }
+        if (getLocation().y + getHeight() >= pnlHeight) {
+            getLocation().y = pnlHeight - getHeight();
+        }
 
     }
 }

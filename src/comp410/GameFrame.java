@@ -31,6 +31,8 @@ public class GameFrame extends JFrame {
     JPanel commandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
     JButton btnExit = new JButton("Exit");
+    JButton nextQuesBtn = new JButton("Next Question");
+    JButton nextLvlBtn = new JButton("Next Level");
     private GamePanel gamePanel = new GamePanel();
     StatusPanel statusPanel = new StatusPanel();
     Questions questionPanel = new Questions();
@@ -54,24 +56,27 @@ public class GameFrame extends JFrame {
         setLayout(new BorderLayout());
 
         //add buttons to command panel
-
         commandPanel.add(btnExit);
+        commandPanel.add(nextQuesBtn);
+        commandPanel.add(nextLvlBtn);
         btnExit.addActionListener(new CommandActionListener());
+        nextQuesBtn.addActionListener(new CommandActionListener());
+        nextLvlBtn.addActionListener(new CommandActionListener());
 
         //adds all the panels to the GameFrame
         //the commandPanel holds the start, restart and exit buttons
         //the gamePanel holds the main part of the screen with the spaceship, aliens and lasercanon
         //the status panel holds the score
         top = new JPanel();
-        top.setLayout(new GridLayout(2, 1, 1, 1));
-        top.add(statusPanel);
-        top.add(questionPanel);
-        
-        center= new JPanel();
+        //top.setLayout(new GridLayout(2, 1, 1, 1));
+        top.setLayout(new BorderLayout());
+        top.add(statusPanel, BorderLayout.NORTH);
+        top.add(questionPanel, BorderLayout.SOUTH);
+
+        center = new JPanel();
         center.add(gamePanel);
         center.setPreferredSize(new Dimension(550, 550));
         center.setSize(new Dimension(550, 550));
-        
 
         container.add(commandPanel, BorderLayout.SOUTH);
         container.add(center, BorderLayout.CENTER);
@@ -104,7 +109,23 @@ public class GameFrame extends JFrame {
 
             if (btn.getText().equals("Exit")) {
                 System.exit(0);
-            } 
+            }
+            if (btn.getText().equals("Next Question")) {
+                questionPanel.NextQuestion();
+                if (questionPanel.getQuestionNumber() != 16) {
+                    gamePanel.randomMaze();
+                }
+
+            }
+            if (btn.getText().equals("Next Level")) {
+                questionPanel.NextLevel();
+                if (!(questionPanel.getQuestionNumber() > 10 && questionPanel.getQuestionNumber() < 17)) {
+                    gamePanel.randomMaze();
+
+                }
+                gamePanel.setFocusable(true);
+                gamePanel.requestFocus();
+            }
 
         }
 
