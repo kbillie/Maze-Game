@@ -25,8 +25,6 @@ public class Player extends GameObject{
         this.pnlWidth = pnlWidth;
         this.pnlHeight = pnlHeight;
         this.moveInc = moveInc;
-        getLocation().x = pnlWidth / 2;
-        getLocation().y = pnlHeight - pnlHeight / 10;
         setWidth(15);
         setHeight(15);
 
@@ -130,6 +128,14 @@ public class Player extends GameObject{
         if (getLocation().y + getHeight() >= pnlHeight) {
             getLocation().y = pnlHeight - getHeight();
         }
+
+    }
+
+    @Override
+    public void draw(Graphics g, int x, int y) {
+        g.setColor(Color.MAGENTA);
+
+        g.fillRect(getLocation().x + x, getLocation().y + y, getWidth(), getHeight());
 
     }
 }

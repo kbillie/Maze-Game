@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,14 +73,24 @@ public class GameFrame extends JFrame {
         top.setLayout(new BorderLayout());
         top.add(statusPanel, BorderLayout.NORTH);
         top.add(questionPanel, BorderLayout.SOUTH);
-
-        center = new JPanel();
-        center.add(gamePanel);
-        center.setPreferredSize(new Dimension(550, 550));
-        center.setSize(new Dimension(550, 550));
+//
+//        center = new JPanel() {
+//
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                g.setColor(Color.WHITE);
+//                g.fillRect(0, 0, getWidth(), getHeight());
+//
+//            }
+//        };
+//        center.setBorder(new javax.swing.border.LineBorder(Color.BLACK));
+//
+//        center.add(gamePanel);
+//        center.setPreferredSize(new Dimension(500, 500));
+//        center.setSize(new Dimension(500, 500));
 
         container.add(commandPanel, BorderLayout.SOUTH);
-        container.add(center, BorderLayout.CENTER);
+        container.add(gamePanel, BorderLayout.CENTER);
         container.add(top, BorderLayout.NORTH);
 
         gamePanel.setStatusPanel(statusPanel);
@@ -115,6 +126,7 @@ public class GameFrame extends JFrame {
                 if (questionPanel.getQuestionNumber() != 16) {
                     gamePanel.randomMaze();
                 }
+                pack();
 
             }
             if (btn.getText().equals("Next Level")) {
@@ -123,8 +135,7 @@ public class GameFrame extends JFrame {
                     gamePanel.randomMaze();
 
                 }
-                gamePanel.setFocusable(true);
-                gamePanel.requestFocus();
+                pack();
             }
 
         }

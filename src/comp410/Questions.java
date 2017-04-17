@@ -140,7 +140,6 @@ public class Questions extends JPanel {
     public void NextLevel() {
 
         int currentQuestion = getQuestionNumber();
-        System.out.println(currentQuestion);
         if (currentQuestion > 10 && currentQuestion < 17) {
             return;
         }

@@ -14,6 +14,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
 
 import java.awt.event.ActionEvent;
@@ -48,13 +49,27 @@ public class GamePanel extends JPanel implements KeyListener {
     private BufferedImage icon;
     BufferedImage scaledImage;
     Questions ques = new Questions();
+    JPanel maze;
 
     //constructor that sets the size and adds all the objects from the arraylist to the panel
     public GamePanel() {
 
         setSize(500, 500);
         setPreferredSize(new Dimension(500, 500));
-        randomMaze();
+        maze = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(scaledImage, 0, 0, null);
+                for (GameObject go : gameObjects) {
+                    go.draw(g);
+                }
+            }
+        };
+        maze.setSize(400, 400);
+        maze.setPreferredSize(new Dimension(400, 400));
+        setBorder(new javax.swing.border.LineBorder(Color.BLACK));
+
+        add(maze);
 
         player = new Player(this.getWidth(), this.getHeight(), 10);
         addGameObject(player);
@@ -62,9 +77,8 @@ public class GamePanel extends JPanel implements KeyListener {
         //adds to the key listener to the panel
         addKeyListener(this);
 
-        this.setBorder(new javax.swing.border.LineBorder(Color.BLACK));
-
         setOpaque(false);
+        randomMaze();
 
     }
 
@@ -79,19 +93,13 @@ public class GamePanel extends JPanel implements KeyListener {
 
     //paints all the objects that are visible in the arraylist 
     protected void paintComponent(Graphics g) {
-
-        g.drawImage(scaledImage, 0, 0, null);
-
-        for (GameObject obj : gameObjects) {
-
-            if (obj.isVisible()) {
-                obj.draw(g);
-
-            }
-
-        }
-
         super.paintComponent(g);
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        for (GameObject go : gameObjects) {
+            go.draw(g, maze.getX(), maze.getY());
+        }
 
     }
 
@@ -143,12 +151,12 @@ public class GamePanel extends JPanel implements KeyListener {
 
         //if the right key is pressed move the canon to the right
         if (code == KeyEvent.VK_RIGHT) {
-            player.moveRight();
-            for (int x = 0; x < player.getWidth(); x++) {
-                for (int y = 0; y < player.getHeight(); y++) {
-                    if ((getRed(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getGreen(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getBlue(x + player.getLocation().x, y + player.getLocation().y) == 0)) {
-                        player.setLocation(player.getLocation());
-                        player.moveLeft();
+            getPlayer().moveRight();
+            for (int x = 0; x < getPlayer().getWidth(); x++) {
+                for (int y = 0; y < getPlayer().getHeight(); y++) {
+                    if ((getRed(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0) && (getGreen(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0) && (getBlue(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0)) {
+                        getPlayer().setLocation(getPlayer().getLocation());
+                        getPlayer().moveLeft();
                         break;
                     }
                 }
@@ -158,12 +166,12 @@ public class GamePanel extends JPanel implements KeyListener {
         } //if the left arrow key is pressed move the canon to the left
         else if (code == KeyEvent.VK_LEFT) {
 
-            player.moveLeft();
-            for (int x = 0; x < player.getWidth(); x++) {
-                for (int y = 0; y < player.getHeight(); y++) {
-                    if ((getRed(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getGreen(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getBlue(x + player.getLocation().x, y + player.getLocation().y) == 0)) {
-                        player.setLocation(player.getLocation());
-                        player.moveRight();
+            getPlayer().moveLeft();
+            for (int x = 0; x < getPlayer().getWidth(); x++) {
+                for (int y = 0; y < getPlayer().getHeight(); y++) {
+                    if ((getRed(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0) && (getGreen(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0) && (getBlue(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0)) {
+                        getPlayer().setLocation(getPlayer().getLocation());
+                        getPlayer().moveRight();
                         break;
                     }
                 }
@@ -171,12 +179,12 @@ public class GamePanel extends JPanel implements KeyListener {
             repaint();
         } else if (code == KeyEvent.VK_UP) {
 
-            player.moveUp();
-            for (int x = 0; x < player.getWidth(); x++) {
-                for (int y = 0; y < player.getHeight(); y++) {
-                    if ((getRed(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getGreen(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getBlue(x + player.getLocation().x, y + player.getLocation().y) == 0)) {
-                        player.setLocation(player.getLocation());
-                        player.moveDown();
+            getPlayer().moveUp();
+            for (int x = 0; x < getPlayer().getWidth(); x++) {
+                for (int y = 0; y < getPlayer().getHeight(); y++) {
+                    if ((getRed(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0) && (getGreen(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0) && (getBlue(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0)) {
+                        getPlayer().setLocation(getPlayer().getLocation());
+                        getPlayer().moveDown();
                         break;
                     }
                 }
@@ -184,12 +192,12 @@ public class GamePanel extends JPanel implements KeyListener {
             repaint();
         } else if (code == KeyEvent.VK_DOWN) {
 
-            player.moveDown();
-            for (int x = 0; x < player.getWidth(); x++) {
-                for (int y = 0; y < player.getHeight(); y++) {
-                    if ((getRed(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getGreen(x + player.getLocation().x, y + player.getLocation().y) == 0) && (getBlue(x + player.getLocation().x, y + player.getLocation().y) == 0)) {
-                        player.setLocation(player.getLocation());
-                        player.moveUp();
+            getPlayer().moveDown();
+            for (int x = 0; x < getPlayer().getWidth(); x++) {
+                for (int y = 0; y < getPlayer().getHeight(); y++) {
+                    if ((getRed(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0) && (getGreen(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0) && (getBlue(x + getPlayer().getLocation().x, y + getPlayer().getLocation().y) == 0)) {
+                        getPlayer().setLocation(getPlayer().getLocation());
+                        getPlayer().moveUp();
                         break;
                     }
                 }
@@ -208,23 +216,33 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
     private BufferedImage getScaledImage() {
-        BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(maze.getWidth(), maze.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = (Graphics2D) image.createGraphics();
         g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
-        g2d.drawImage(icon, 0, 0, getWidth(), getHeight(), null);
+        g2d.drawImage(icon, 0, 0, maze.getWidth(), maze.getHeight(), null);
+        System.out.println(getWidth() + " " + getHeight());
 
         return image;
     }
 
     public int getRed(int x, int y) {
+        if (x >= scaledImage.getWidth() || y >= scaledImage.getHeight() || x < 0 || y < 0) {
+            return 1;
+        }
         return (scaledImage.getRGB(x, y) >> 16) & 0xff;
     }
 
     public int getGreen(int x, int y) {
+        if (x >= scaledImage.getWidth() || y >= scaledImage.getHeight() || x < 0 || y < 0) {
+            return 1;
+        }
         return (scaledImage.getRGB(x, y) >> 8) & 0xff;
     }
 
     public int getBlue(int x, int y) {
+        if (x >= scaledImage.getWidth() || y >= scaledImage.getHeight() || x < 0 || y < 0) {
+            return 1;
+        }
         return scaledImage.getRGB(x, y) & 0xff;
     }
 
@@ -239,16 +257,24 @@ public class GamePanel extends JPanel implements KeyListener {
         String chooseMaze = "Mazes/" + pathBegin + randomNumber + pathEnd;
 
         try {
-            icon = javax.imageio.ImageIO.read(new File(chooseMaze));
+            icon = javax.imageio.ImageIO.read(getClass().getResourceAsStream(chooseMaze));
         } catch (IOException ex) {
             Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         scaledImage = getScaledImage();
         //sets the panel tp focusable so that the key listener can work
+        player.setLocation(new Point(maze.getWidth() / 2 - 24, 0));
         setFocusable(true);
         requestFocus();
 
         repaint();
 
+    }
+
+    /**
+     * @return the player
+     */
+    public Player getPlayer() {
+        return player;
     }
 }
