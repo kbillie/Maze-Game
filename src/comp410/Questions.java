@@ -30,6 +30,7 @@ public class Questions extends JPanel {
     Answers ans = new Answers();
     private int questionNumber;
     private String question;
+    private int questionType;
     private String answer;
 
     public Questions() {
@@ -55,6 +56,7 @@ public class Questions extends JPanel {
         scan.nextLine();
         setQuestion(scan.nextLine());
         setAnswer(scan.nextLine());
+        setQuestionType(Integer.parseInt(scan.nextLine()));
         ans.levelOneAnswers.add(getAnswer());
         questionLabel.setText("<html>True/False<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
     }
@@ -74,6 +76,7 @@ public class Questions extends JPanel {
                 ans.levelTwoAnswers.add(optionC);
                 String optionD = scan.nextLine();
                 ans.levelTwoAnswers.add(optionD);
+                setQuestionType(Integer.parseInt(scan.nextLine()));
                 questionLabel.setText("<html>Multiple Choice<br><br>" + getQuestionNumber() + ". " + getQuestion()
                         + "<br>" + optionA + "<br>" + optionB + "<br>" + optionC + "<br>" + optionD + "</html>");
                 break;
@@ -89,6 +92,7 @@ public class Questions extends JPanel {
                 scan.nextLine();
                 setQuestion(scan.nextLine());
                 setAnswer(scan.nextLine());
+                setQuestionType(Integer.parseInt(scan.nextLine()));
                 ans.levelThreeAnswers.add(getAnswer());
                 questionLabel.setText("<html>Fill in the Blank<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
                 break;
@@ -113,7 +117,7 @@ public class Questions extends JPanel {
                 setAnswer(scan.nextLine());
                 ans.levelOneAnswers.add(getAnswer());
                 questionLabel.setText("<html>True/False<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
-                
+
             } else if (questionNumber > 4 && questionNumber < 11) {
                 String optionA = scan.nextLine();
                 ans.levelTwoAnswers.add(optionA);
@@ -123,18 +127,19 @@ public class Questions extends JPanel {
                 ans.levelTwoAnswers.add(optionC);
                 String optionD = scan.nextLine();
                 ans.levelTwoAnswers.add(optionD);
+                setQuestionType(Integer.parseInt(scan.nextLine()));
                 questionLabel.setText("<html>Multiple Choice<br><br>" + getQuestionNumber() + ". " + getQuestion()
                         + "<br>" + optionA + "<br>" + optionB + "<br>" + optionC + "<br>" + optionD + "</html>");
             } else if (questionNumber > 10 && questionNumber < 17) {
                 setAnswer(scan.nextLine());
+                setQuestionType(Integer.parseInt(scan.nextLine()));
                 ans.levelThreeAnswers.add(getAnswer());
                 questionLabel.setText("<html>Fill in the Blank<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
 
             }
-            
+
         }
-        
-        
+
     }
 
     public void NextLevel() {
@@ -159,11 +164,11 @@ public class Questions extends JPanel {
                     ans.levelTwoAnswers.add(optionC);
                     String optionD = scan.nextLine();
                     ans.levelTwoAnswers.add(optionD);
+                    setQuestionType(Integer.parseInt(scan.nextLine()));
                     questionLabel.setText("<html>Multiple Choice<br><br>" + getQuestionNumber() + ". " + getQuestion()
                             + "<br>" + optionA + "<br>" + optionB + "<br>" + optionC + "<br>" + optionD + "</html>");
                     break;
                 }
-                
 
             }
 
@@ -177,10 +182,11 @@ public class Questions extends JPanel {
                     setQuestion(scan.nextLine());
                     setAnswer(scan.nextLine());
                     ans.levelThreeAnswers.add(getAnswer());
+                    setQuestionType(Integer.parseInt(scan.nextLine()));
                     questionLabel.setText("<html>Fill in the Blank<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
                     break;
                 }
-                
+
             }
 
         }
@@ -227,6 +233,20 @@ public class Questions extends JPanel {
      */
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    /**
+     * @return the questionType
+     */
+    public int getQuestionType() {
+        return questionType;
+    }
+
+    /**
+     * @param questionType the questionType to set
+     */
+    public void setQuestionType(int questionType) {
+        this.questionType = questionType;
     }
 
 }

@@ -53,6 +53,7 @@ public class GameFrame extends JFrame {
 
         //sets the background to black
         gamePanel.setBackground(Color.BLACK);
+        gamePanel.setQues(questionPanel);
 
         setLayout(new BorderLayout());
 
@@ -88,6 +89,10 @@ public class GameFrame extends JFrame {
 //        center.add(gamePanel);
 //        center.setPreferredSize(new Dimension(500, 500));
 //        center.setSize(new Dimension(500, 500));
+        
+        
+        
+        
 
         container.add(commandPanel, BorderLayout.SOUTH);
         container.add(gamePanel, BorderLayout.CENTER);
@@ -139,6 +144,7 @@ public class GameFrame extends JFrame {
             }
 
         }
+        
 
     }
 }
