@@ -30,6 +30,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -48,7 +49,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
     private BufferedImage icon;
     BufferedImage scaledImage;
-    Questions ques = new Questions();
+    private Questions ques = null;
     JPanel maze;
 
     //constructor that sets the size and adds all the objects from the arraylist to the panel
@@ -99,6 +100,39 @@ public class GamePanel extends JPanel implements KeyListener {
 
         for (GameObject go : gameObjects) {
             go.draw(g, maze.getX(), maze.getY());
+        }
+
+        //System.out.println(getQues().getQuestionNumber());
+        g.setColor(Color.BLUE);
+        if (ques.getQuestionType() == 0) {
+
+            g.drawOval(50, 450, 30, 30);
+            g.fillOval(50, 450, 30, 30);
+            g.drawString("a", 50, 450);
+
+            g.drawOval(150, 450, 30, 30);
+            g.fillOval(150, 450, 30, 30);
+            g.drawString("b", 150, 450);
+
+            g.drawOval(300, 450, 30, 30);
+            g.fillOval(300, 450, 30, 30);
+            g.drawString("c", 300, 450);
+
+            g.drawOval(400, 450, 30, 30);
+            g.fillOval(400, 450, 30, 30);
+            g.drawString("d", 400, 450);
+
+        } else if (ques.getQuestionType() == 1) {
+
+            g.drawOval(50, 450, 30, 30);
+            g.fillOval(50, 450, 30, 30);
+            g.drawString("true", 50, 450);
+
+            g.drawOval(150, 450, 30, 30);
+            g.fillOval(150, 450, 30, 30);
+            g.drawString("false", 150, 450);
+        } else if (ques.getQuestionType() == 2) {
+            g.fillOval(250, 400, 30, 30);
         }
 
     }
@@ -203,8 +237,27 @@ public class GamePanel extends JPanel implements KeyListener {
                 }
             }
             repaint();
+        } else {
+            return;
         }
 
+        int px = player.getLocation().x + maze.getX();
+        int py = player.getLocation().y + maze.getY();
+        int ex = 275;
+        int ey = 415;
+        int x = (px - ex);
+        int y = (py - ey);
+        if (Math.sqrt(x * x + y * y) < 30) {
+            JOptionPane.showMessageDialog(this, "Found exit");
+
+            if (ques.getQuestionType() == 0) {
+                
+            } else if (ques.getQuestionType() == 1) {
+                
+            } else if (ques.getQuestionType() == 2) {
+                
+            }
+        }
     }
 
     @Override
@@ -276,5 +329,19 @@ public class GamePanel extends JPanel implements KeyListener {
      */
     public Player getPlayer() {
         return player;
+    }
+
+    /**
+     * @return the ques
+     */
+    public Questions getQues() {
+        return ques;
+    }
+
+    /**
+     * @param ques the ques to set
+     */
+    public void setQues(Questions ques) {
+        this.ques = ques;
     }
 }
