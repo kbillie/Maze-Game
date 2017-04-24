@@ -42,7 +42,6 @@ public class Questions extends JPanel {
             Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //setSize(5, 100);
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         //adds the JLabel to the panel
@@ -55,8 +54,9 @@ public class Questions extends JPanel {
         setQuestionNumber(Integer.parseInt(scan.next()));
         scan.nextLine();
         setQuestion(scan.nextLine());
-        setAnswer(scan.nextLine());
+        setAnswer(scan.nextLine().trim());
         setQuestionType(Integer.parseInt(scan.nextLine()));
+        ans.levelOneAnswers.clear();
         ans.levelOneAnswers.add(getAnswer());
         questionLabel.setText("<html>True/False<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
     }
@@ -68,14 +68,23 @@ public class Questions extends JPanel {
                 setQuestionNumber(Integer.parseInt(number));
                 scan.nextLine();
                 setQuestion(scan.nextLine());
+                ans.levelTwoAnswers.clear();
                 String optionA = scan.nextLine();
-                ans.levelTwoAnswers.add(optionA);
+                if (optionA.contains("-")) {
+                    ans.levelTwoAnswers.add(optionA);
+                }
                 String optionB = scan.nextLine();
-                ans.levelTwoAnswers.add(optionB);
+                if (optionB.contains("-")) {
+                    ans.levelTwoAnswers.add(optionB);
+                }
                 String optionC = scan.nextLine();
-                ans.levelTwoAnswers.add(optionC);
+                if (optionC.contains("-")) {
+                    ans.levelTwoAnswers.add(optionC);
+                }
                 String optionD = scan.nextLine();
-                ans.levelTwoAnswers.add(optionD);
+                if (optionD.contains("-")) {
+                    ans.levelTwoAnswers.add(optionD);
+                }
                 setQuestionType(Integer.parseInt(scan.nextLine()));
                 questionLabel.setText("<html>Multiple Choice<br><br>" + getQuestionNumber() + ". " + getQuestion()
                         + "<br>" + optionA + "<br>" + optionB + "<br>" + optionC + "<br>" + optionD + "</html>");
@@ -91,8 +100,9 @@ public class Questions extends JPanel {
                 setQuestionNumber(Integer.parseInt(number));
                 scan.nextLine();
                 setQuestion(scan.nextLine());
-                setAnswer(scan.nextLine());
+                setAnswer(scan.nextLine().trim());
                 setQuestionType(Integer.parseInt(scan.nextLine()));
+                ans.levelThreeAnswers.clear();
                 ans.levelThreeAnswers.add(getAnswer());
                 questionLabel.setText("<html>Fill in the Blank<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
                 break;
@@ -114,25 +124,36 @@ public class Questions extends JPanel {
             scan.nextLine();
             setQuestion(scan.nextLine());
             if (questionNumber > 0 && questionNumber < 5) {
-                setAnswer(scan.nextLine());
+                setAnswer(scan.nextLine().trim());
+                ans.levelOneAnswers.clear();
                 ans.levelOneAnswers.add(getAnswer());
                 questionLabel.setText("<html>True/False<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
 
             } else if (questionNumber > 4 && questionNumber < 11) {
+                ans.levelTwoAnswers.clear();
                 String optionA = scan.nextLine();
-                ans.levelTwoAnswers.add(optionA);
+                if (optionA.contains("-")) {
+                    ans.levelTwoAnswers.add(optionA);
+                }
                 String optionB = scan.nextLine();
-                ans.levelTwoAnswers.add(optionB);
+                if (optionB.contains("-")) {
+                    ans.levelTwoAnswers.add(optionB);
+                }
                 String optionC = scan.nextLine();
-                ans.levelTwoAnswers.add(optionC);
+                if (optionC.contains("-")) {
+                    ans.levelTwoAnswers.add(optionC);
+                }
                 String optionD = scan.nextLine();
-                ans.levelTwoAnswers.add(optionD);
+                if (optionD.contains("-")) {
+                    ans.levelTwoAnswers.add(optionD);
+                }
                 setQuestionType(Integer.parseInt(scan.nextLine()));
                 questionLabel.setText("<html>Multiple Choice<br><br>" + getQuestionNumber() + ". " + getQuestion()
                         + "<br>" + optionA + "<br>" + optionB + "<br>" + optionC + "<br>" + optionD + "</html>");
             } else if (questionNumber > 10 && questionNumber < 17) {
-                setAnswer(scan.nextLine());
+                setAnswer(scan.nextLine().trim());
                 setQuestionType(Integer.parseInt(scan.nextLine()));
+                ans.levelThreeAnswers.clear();
                 ans.levelThreeAnswers.add(getAnswer());
                 questionLabel.setText("<html>Fill in the Blank<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");
 
@@ -156,14 +177,23 @@ public class Questions extends JPanel {
                     setQuestionNumber(Integer.parseInt(number));
                     scan.nextLine();
                     setQuestion(scan.nextLine());
+                    ans.levelTwoAnswers.clear();
                     String optionA = scan.nextLine();
-                    ans.levelTwoAnswers.add(optionA);
+                    if (optionA.contains("-")) {
+                        ans.levelTwoAnswers.add(optionA);
+                    }
                     String optionB = scan.nextLine();
-                    ans.levelTwoAnswers.add(optionB);
+                    if (optionB.contains("-")) {
+                        ans.levelTwoAnswers.add(optionB);
+                    }
                     String optionC = scan.nextLine();
-                    ans.levelTwoAnswers.add(optionC);
+                    if (optionC.contains("-")) {
+                        ans.levelTwoAnswers.add(optionC);
+                    }
                     String optionD = scan.nextLine();
-                    ans.levelTwoAnswers.add(optionD);
+                    if (optionD.contains("-")) {
+                        ans.levelTwoAnswers.add(optionD);
+                    }
                     setQuestionType(Integer.parseInt(scan.nextLine()));
                     questionLabel.setText("<html>Multiple Choice<br><br>" + getQuestionNumber() + ". " + getQuestion()
                             + "<br>" + optionA + "<br>" + optionB + "<br>" + optionC + "<br>" + optionD + "</html>");
@@ -180,7 +210,7 @@ public class Questions extends JPanel {
                     setQuestionNumber(Integer.parseInt(number));
                     scan.nextLine();
                     setQuestion(scan.nextLine());
-                    setAnswer(scan.nextLine());
+                    setAnswer(scan.nextLine().trim());
                     ans.levelThreeAnswers.add(getAnswer());
                     setQuestionType(Integer.parseInt(scan.nextLine()));
                     questionLabel.setText("<html>Fill in the Blank<br><br>" + getQuestionNumber() + ". " + getQuestion() + "</html>");

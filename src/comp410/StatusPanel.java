@@ -25,12 +25,10 @@ public class StatusPanel extends JPanel {
     public StatusPanel() {
         
         this.gamePanel= gamePanel;
-
-        //setSize(5, 100);
         
         setLayout(new FlowLayout(FlowLayout.CENTER));
         
-        //creates the text thst will be inside the JLabel
+        //creates the text that will be inside the score JLabel
         score= new JLabel("Score: " + "0");
         
         //adds the JLabel to the panel

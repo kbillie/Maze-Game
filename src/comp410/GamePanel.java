@@ -30,6 +30,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -101,40 +102,7 @@ public class GamePanel extends JPanel implements KeyListener {
         for (GameObject go : gameObjects) {
             go.draw(g, maze.getX(), maze.getY());
         }
-
-        //System.out.println(getQues().getQuestionNumber());
-        g.setColor(Color.BLUE);
-        if (ques.getQuestionType() == 0) {
-
-            g.drawOval(50, 450, 30, 30);
-            g.fillOval(50, 450, 30, 30);
-            g.drawString("a", 50, 450);
-
-            g.drawOval(150, 450, 30, 30);
-            g.fillOval(150, 450, 30, 30);
-            g.drawString("b", 150, 450);
-
-            g.drawOval(300, 450, 30, 30);
-            g.fillOval(300, 450, 30, 30);
-            g.drawString("c", 300, 450);
-
-            g.drawOval(400, 450, 30, 30);
-            g.fillOval(400, 450, 30, 30);
-            g.drawString("d", 400, 450);
-
-        } else if (ques.getQuestionType() == 1) {
-
-            g.drawOval(50, 450, 30, 30);
-            g.fillOval(50, 450, 30, 30);
-            g.drawString("true", 50, 450);
-
-            g.drawOval(150, 450, 30, 30);
-            g.fillOval(150, 450, 30, 30);
-            g.drawString("false", 150, 450);
-        } else if (ques.getQuestionType() == 2) {
-            g.fillOval(250, 400, 30, 30);
-        }
-
+        
     }
 
     /**
@@ -247,15 +215,151 @@ public class GamePanel extends JPanel implements KeyListener {
         int ey = 415;
         int x = (px - ex);
         int y = (py - ey);
-        if (Math.sqrt(x * x + y * y) < 30) {
-            JOptionPane.showMessageDialog(this, "Found exit");
+        if (Math.sqrt(x * x + y * y) < 50) {
 
             if (ques.getQuestionType() == 0) {
-                
+                JFrame frame = new JFrame();
+                String[] options = new String[3];
+                options[0] = "True";
+                options[1] = "False";
+                options[2] = "Clue";
+                int n = JOptionPane.showOptionDialog(frame.getContentPane(), "True or False?", "Question", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if (n == JOptionPane.YES_OPTION) {
+                    if (ques.ans.levelOneAnswers.get(0).equals("True")) {
+                        JOptionPane.showMessageDialog(null, "Correct!");
+                        ques.NextQuestion();
+                        if (ques.getQuestionNumber() != 16) {
+                            randomMaze();
+                            points += 100;
+                            statusPanel.setPoints(points);
+                        }
+                    } else {
+                        resetPlayer();
+                        JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
+                        points -= 100;
+                        statusPanel.setPoints(points);
+
+                    }
+                } else if (n == JOptionPane.NO_OPTION) {
+                    if (ques.ans.levelOneAnswers.get(0).equals("False")) {
+                        JOptionPane.showMessageDialog(null, "Correct!");
+                        ques.NextQuestion();
+                        if (ques.getQuestionNumber() != 16) {
+                            randomMaze();
+                            points += 100;
+                            statusPanel.setPoints(points);
+                        }
+                    } else {
+                        resetPlayer();
+                        JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
+                        points -= 100;
+                        statusPanel.setPoints(points);
+
+                    }
+
+                } else if (n == 2) {
+
+                }
+
             } else if (ques.getQuestionType() == 1) {
-                
+                String[] options = new String[]{"d", "c", "b", "a", "Clue"};
+                int n = JOptionPane.showOptionDialog(null, "Choose an option:", "Question",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[4]);
+                if (n == 4) {
+                    
+                }
+                if (n == 3) {
+                    if (ques.ans.levelTwoAnswers.get(0).substring(0, 1).equals("a")) {
+                        JOptionPane.showMessageDialog(null, "Correct!");
+                        ques.NextQuestion();
+                        if (ques.getQuestionNumber() != 16) {
+                            randomMaze();
+                            points += 200;
+                            statusPanel.setPoints(points);
+                        }
+                    }
+                    else {
+                        resetPlayer();
+                        JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
+                        points -= 200;
+                        statusPanel.setPoints(points);
+                    }
+
+                }
+                if (n == 2) {
+                    if (ques.ans.levelTwoAnswers.get(0).substring(0, 1).equals("b")) {
+                        JOptionPane.showMessageDialog(null, "Correct!");
+                        ques.NextQuestion();
+                        if (ques.getQuestionNumber() != 16) {
+                            randomMaze();
+                            points += 200;
+                            statusPanel.setPoints(points);
+                        }
+                    }
+                    else {
+                        resetPlayer();
+                        JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
+                        points -= 200;
+                        statusPanel.setPoints(points);
+                    }
+                }
+                if (n == 1) {
+                    if (ques.ans.levelTwoAnswers.get(0).substring(0, 1).equals("c")) {
+                        JOptionPane.showMessageDialog(null, "Correct!");
+                        ques.NextQuestion();
+                        if (ques.getQuestionNumber() != 16) {
+                            randomMaze();
+                            points += 200;
+                            statusPanel.setPoints(points);
+                        }
+                    }
+                    else {
+                        resetPlayer();
+                        JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
+                        points -= 200;
+                        statusPanel.setPoints(points);
+                    }
+                }
+                if (n == 0) {
+                    if (ques.ans.levelTwoAnswers.get(0).substring(0, 1).equals("d")) {
+                        JOptionPane.showMessageDialog(null, "Correct!");
+                        ques.NextQuestion();
+                        if (ques.getQuestionNumber() != 16) {
+                            randomMaze();
+                            points += 200;
+                            statusPanel.setPoints(points);
+                        }
+                    }
+                    else {
+                        resetPlayer();
+                        JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
+                        points -= 200;
+                        statusPanel.setPoints(points);
+                    }
+                }
+
             } else if (ques.getQuestionType() == 2) {
-                
+
+                String answer;
+                answer = JOptionPane.showInputDialog("Enter answer:");
+
+                if (answer.equalsIgnoreCase(ques.ans.levelThreeAnswers.get(0))) {
+                    JOptionPane.showMessageDialog(null, "Correct!");
+                    ques.NextQuestion();
+                    if (ques.getQuestionNumber() != 16) {
+                        randomMaze();
+                        points += 300;
+                        statusPanel.setPoints(points);
+                    }
+                } else {
+                    resetPlayer();
+                    JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
+                    points -= 300;
+                    statusPanel.setPoints(points);
+
+                }
+
             }
         }
     }
@@ -273,7 +377,6 @@ public class GamePanel extends JPanel implements KeyListener {
         Graphics2D g2d = (Graphics2D) image.createGraphics();
         g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
         g2d.drawImage(icon, 0, 0, maze.getWidth(), maze.getHeight(), null);
-        System.out.println(getWidth() + " " + getHeight());
 
         return image;
     }
@@ -315,8 +418,10 @@ public class GamePanel extends JPanel implements KeyListener {
             Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         scaledImage = getScaledImage();
+
+        resetPlayer();
+
         //sets the panel tp focusable so that the key listener can work
-        player.setLocation(new Point(maze.getWidth() / 2 - 24, 0));
         setFocusable(true);
         requestFocus();
 
@@ -343,5 +448,11 @@ public class GamePanel extends JPanel implements KeyListener {
      */
     public void setQues(Questions ques) {
         this.ques = ques;
+    }
+
+    public void resetPlayer() {
+
+        player.setLocation(new Point(maze.getWidth() / 2 - 24, 0));
+
     }
 }
