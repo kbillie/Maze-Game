@@ -32,7 +32,7 @@ public class GameFrame extends JFrame {
     JPanel commandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
     JButton btnExit = new JButton("Exit");
-    JButton nextQuesBtn = new JButton("Next Question");
+//    JButton nextQuesBtn = new JButton("Next Question");
     JButton nextLvlBtn = new JButton("Next Level");
     private GamePanel gamePanel = new GamePanel();
     StatusPanel statusPanel = new StatusPanel();
@@ -59,10 +59,10 @@ public class GameFrame extends JFrame {
 
         //add buttons to command panel
         commandPanel.add(btnExit);
-        commandPanel.add(nextQuesBtn);
+//        commandPanel.add(nextQuesBtn);
         commandPanel.add(nextLvlBtn);
         btnExit.addActionListener(new CommandActionListener());
-        nextQuesBtn.addActionListener(new CommandActionListener());
+//        nextQuesBtn.addActionListener(new CommandActionListener());
         nextLvlBtn.addActionListener(new CommandActionListener());
 
         //adds all the panels to the GameFrame
@@ -89,10 +89,6 @@ public class GameFrame extends JFrame {
 //        center.add(gamePanel);
 //        center.setPreferredSize(new Dimension(500, 500));
 //        center.setSize(new Dimension(500, 500));
-        
-        
-        
-        
 
         container.add(commandPanel, BorderLayout.SOUTH);
         container.add(gamePanel, BorderLayout.CENTER);
@@ -126,25 +122,26 @@ public class GameFrame extends JFrame {
             if (btn.getText().equals("Exit")) {
                 System.exit(0);
             }
-            if (btn.getText().equals("Next Question")) {
-                questionPanel.NextQuestion();
-                if (questionPanel.getQuestionNumber() != 16) {
-                    gamePanel.randomMaze();
-                }
-                pack();
-
-            }
+//            if (btn.getText().equals("Next Question")) {
+//                questionPanel.NextQuestion();
+//                if (questionPanel.getQuestionNumber() != 16) {
+//                    gamePanel.randomMaze();
+//                }
+//                pack();
+//
+//            }
             if (btn.getText().equals("Next Level")) {
                 questionPanel.NextLevel();
                 if (!(questionPanel.getQuestionNumber() > 10 && questionPanel.getQuestionNumber() < 17)) {
                     gamePanel.randomMaze();
 
                 }
+                gamePanel.setFocusable(true);
+                gamePanel.requestFocus();
                 pack();
             }
 
         }
-        
 
     }
 }
