@@ -22,42 +22,48 @@ A class contract of a class consists of
 a. Public methods
 b. Private instance variables
 c. Public constraints
-d. A,C <-
+d. A,C
+d
 1
 6
 The scope of an instance variable:
-a. Is the entire class in which the instance variable is declared <-
+a. Is the entire class in which the instance variable is declared
 b. Is the same as a local variable
 c. Starts where the variables is declared and continues until the end of the class
 d. Is anywhere in the program
+a
 1
 7
 An abstract class:
 a. Can have instance variables
 b. Can have constructors
 c. Can have concrete methods
-d. All of the above <-
+d. All of the above
+d
 1
 8
 Which interface do the methods Mousedragged and Mousemoved belong to?
 a.Mouse Listener
-b.Mousemotionlistener <-
+b.Mousemotionlistener
 c. Mouse 
 d.Mouse Motion
+b
 1
 9
 Which of the following can be operands of arithmetic operators?
 a. Numeric
 b. Boolean
 c. Characters
-d. Both Numeric & Characters <-
+d. Both Numeric & Characters
+d
 1
 10
 Which of the following is a valid declaration of an object of class Box?
-a. Box obj = new Box(); <-
+a. Box obj = new Box();
 b. Box obj = new Box;
 c. obj = new Box();
 d. new Box obj;
+a
 1
 11
 _______ is where a subclass is used where the superclass is expected.
@@ -82,3 +88,4 @@ Mutator
 16
 ____________ A series of instructions grouped together to  perform a function.
 Method 
+2
