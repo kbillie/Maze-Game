@@ -32,11 +32,12 @@ public class GameFrame extends JFrame {
     JPanel commandPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
     JButton btnExit = new JButton("Exit");
-//    JButton nextQuesBtn = new JButton("Next Question");
+    JButton nextQuesBtn = new JButton("Next Question");
     JButton nextLvlBtn = new JButton("Next Level");
     private GamePanel gamePanel = new GamePanel();
     StatusPanel statusPanel = new StatusPanel();
     Questions questionPanel = new Questions();
+    
 
     JPanel top;
     JPanel center;
@@ -59,10 +60,10 @@ public class GameFrame extends JFrame {
 
         //add buttons to command panel
         commandPanel.add(btnExit);
-//        commandPanel.add(nextQuesBtn);
+        commandPanel.add(nextQuesBtn);
         commandPanel.add(nextLvlBtn);
         btnExit.addActionListener(new CommandActionListener());
-//        nextQuesBtn.addActionListener(new CommandActionListener());
+        nextQuesBtn.addActionListener(new CommandActionListener());
         nextLvlBtn.addActionListener(new CommandActionListener());
 
         //adds all the panels to the GameFrame
@@ -120,16 +121,17 @@ public class GameFrame extends JFrame {
             JButton btn = (JButton) e.getSource();
 
             if (btn.getText().equals("Exit")) {
+                System.out.println(gamePanel.getPoints());
                 System.exit(0);
             }
-//            if (btn.getText().equals("Next Question")) {
-//                questionPanel.NextQuestion();
-//                if (questionPanel.getQuestionNumber() != 16) {
-//                    gamePanel.randomMaze();
-//                }
-//                pack();
-//
-//            }
+            if (btn.getText().equals("Next Question")) {
+                questionPanel.NextQuestion();
+                if (questionPanel.getQuestionNumber() != 16) {
+                    gamePanel.randomMaze();
+                }
+                pack();
+
+            }
             if (btn.getText().equals("Next Level")) {
                 questionPanel.NextLevel();
                 if (!(questionPanel.getQuestionNumber() > 10 && questionPanel.getQuestionNumber() < 17)) {

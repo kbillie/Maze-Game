@@ -45,12 +45,13 @@ public class GamePanel extends JPanel implements KeyListener {
     private StatusPanel statusPanel = new StatusPanel();
     private int randomNumber;
     private int count;
-    int points = 0;
+    private int points = 0;
     boolean playing = false;
 
     private BufferedImage icon;
     BufferedImage scaledImage;
     private Questions ques = null;
+    Clues clue = new Clues();
     JPanel maze;
 
     //constructor that sets the size and adds all the objects from the arraylist to the panel
@@ -230,14 +231,14 @@ public class GamePanel extends JPanel implements KeyListener {
                         ques.NextQuestion();
                         if (ques.getQuestionNumber() != 16) {
                             randomMaze();
-                            points += 100;
-                            statusPanel.setPoints(points);
+                            setPoints(getPoints() + 100);
+                            statusPanel.setPoints(getPoints());
                         }
                     } else {
                         resetPlayer();
                         JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
-                        points -= 100;
-                        statusPanel.setPoints(points);
+                        setPoints(getPoints() - 100);
+                        statusPanel.setPoints(getPoints());
 
                     }
                 } else if (n == JOptionPane.NO_OPTION) {
@@ -246,18 +247,19 @@ public class GamePanel extends JPanel implements KeyListener {
                         ques.NextQuestion();
                         if (ques.getQuestionNumber() != 16) {
                             randomMaze();
-                            points += 100;
-                            statusPanel.setPoints(points);
+                            setPoints(getPoints() + 100);
+                            statusPanel.setPoints(getPoints());
                         }
                     } else {
                         resetPlayer();
                         JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
-                        points -= 100;
-                        statusPanel.setPoints(points);
+                        setPoints(getPoints() - 100);
+                        statusPanel.setPoints(getPoints());
 
                     }
 
                 } else if (n == 2) {
+                    JOptionPane.showMessageDialog(null, clue.listOfClues.get(ques.getQuestionNumber()-1), "Clue", JOptionPane.PLAIN_MESSAGE);
 
                 }
 
@@ -267,7 +269,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                         null, options, options[4]);
                 if (n == 4) {
-                    
+                    JOptionPane.showMessageDialog(null, clue.listOfClues.get(ques.getQuestionNumber()-1), "Clue", JOptionPane.PLAIN_MESSAGE);    
                 }
                 if (n == 3) {
                     if (ques.ans.levelTwoAnswers.get(0).substring(0, 1).equals("a")) {
@@ -275,15 +277,15 @@ public class GamePanel extends JPanel implements KeyListener {
                         ques.NextQuestion();
                         if (ques.getQuestionNumber() != 16) {
                             randomMaze();
-                            points += 200;
-                            statusPanel.setPoints(points);
+                            setPoints(getPoints() + 200);
+                            statusPanel.setPoints(getPoints());
                         }
                     }
                     else {
                         resetPlayer();
                         JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
-                        points -= 200;
-                        statusPanel.setPoints(points);
+                        setPoints(getPoints() - 200);
+                        statusPanel.setPoints(getPoints());
                     }
 
                 }
@@ -293,15 +295,15 @@ public class GamePanel extends JPanel implements KeyListener {
                         ques.NextQuestion();
                         if (ques.getQuestionNumber() != 16) {
                             randomMaze();
-                            points += 200;
-                            statusPanel.setPoints(points);
+                            setPoints(getPoints() + 200);
+                            statusPanel.setPoints(getPoints());
                         }
                     }
                     else {
                         resetPlayer();
                         JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
-                        points -= 200;
-                        statusPanel.setPoints(points);
+                        setPoints(getPoints() - 200);
+                        statusPanel.setPoints(getPoints());
                     }
                 }
                 if (n == 1) {
@@ -310,15 +312,15 @@ public class GamePanel extends JPanel implements KeyListener {
                         ques.NextQuestion();
                         if (ques.getQuestionNumber() != 16) {
                             randomMaze();
-                            points += 200;
-                            statusPanel.setPoints(points);
+                            setPoints(getPoints() + 200);
+                            statusPanel.setPoints(getPoints());
                         }
                     }
                     else {
                         resetPlayer();
                         JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
-                        points -= 200;
-                        statusPanel.setPoints(points);
+                        setPoints(getPoints() - 200);
+                        statusPanel.setPoints(getPoints());
                     }
                 }
                 if (n == 0) {
@@ -327,15 +329,15 @@ public class GamePanel extends JPanel implements KeyListener {
                         ques.NextQuestion();
                         if (ques.getQuestionNumber() != 16) {
                             randomMaze();
-                            points += 200;
-                            statusPanel.setPoints(points);
+                            setPoints(getPoints() + 200);
+                            statusPanel.setPoints(getPoints());
                         }
                     }
                     else {
                         resetPlayer();
                         JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
-                        points -= 200;
-                        statusPanel.setPoints(points);
+                        setPoints(getPoints() - 200);
+                        statusPanel.setPoints(getPoints());
                     }
                 }
 
@@ -349,14 +351,14 @@ public class GamePanel extends JPanel implements KeyListener {
                     ques.NextQuestion();
                     if (ques.getQuestionNumber() != 16) {
                         randomMaze();
-                        points += 300;
-                        statusPanel.setPoints(points);
+                        setPoints(getPoints() + 300);
+                        statusPanel.setPoints(getPoints());
                     }
                 } else {
                     resetPlayer();
                     JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
-                    points -= 300;
-                    statusPanel.setPoints(points);
+                    setPoints(getPoints() - 300);
+                    statusPanel.setPoints(getPoints());
 
                 }
 
@@ -453,6 +455,22 @@ public class GamePanel extends JPanel implements KeyListener {
     public void resetPlayer() {
 
         player.setLocation(new Point(maze.getWidth() / 2 - 24, 0));
+        
+       
 
+    }
+
+    /**
+     * @return the points
+     */
+    public int getPoints() {
+        return points;
+    }
+
+    /**
+     * @param points the points to set
+     */
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

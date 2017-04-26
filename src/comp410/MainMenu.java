@@ -15,7 +15,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -67,6 +70,11 @@ public class MainMenu extends JFrame {
             JButton btn = (JButton) e.getSource();
 
             if (btn.getText().equals("View Instructions")) {
+                try {
+                    outputToFile("instructions.txt");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                }
                 readIn("instructions.txt");
 
             }
@@ -104,6 +112,21 @@ public class MainMenu extends JFrame {
             System.out.println("File not found.\n");
         }
 
+    }
+    
+    
+    public static void outputToFile(String outputFileName) throws FileNotFoundException {
+        
+        FileOutputStream fos = new FileOutputStream (outputFileName, false);
+        PrintWriter pw = new PrintWriter(fos);
+        
+        
+        pw.println();
+        pw.println();
+        pw.println("Kaila Billie");
+        
+        pw.close();
+        
     }
 
 }
