@@ -46,7 +46,7 @@ Which interface do the methods Mousedragged and Mousemoved belong to?
 a.Mouse Listener
 b.Mousemotionlistener
 c. Mouse 
-d.Mouse Motion
+d. Mouse Motion
 b
 1
 9

@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -31,7 +33,7 @@ import javax.swing.JPanel;
 public class MainMenu extends JFrame {
 
     //creates the panels and buttons that will be in the GameFrame
-    JButton highScoreBtn = new JButton("View High Score");
+    JButton highScoreBtn = new JButton("View Scores");
 
     JButton instructionsBtn = new JButton("View Instructions");
     JButton loadBtn = new JButton("Load Game");
@@ -70,18 +72,13 @@ public class MainMenu extends JFrame {
             JButton btn = (JButton) e.getSource();
 
             if (btn.getText().equals("View Instructions")) {
-                try {
-                    outputToFile("instructions.txt");
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-                }
                 readIn("instructions.txt");
 
             }
             if (btn.getText().equals("Load Game")) {
                 Level lvl = new Level();
             }
-            if (btn.getText().equals("View High Score")) {
+            if (btn.getText().equals("View Scores")) {
                 readIn("highscores.txt");
             }
             if (btn.getText().equals("Exit Game")) {
@@ -92,7 +89,7 @@ public class MainMenu extends JFrame {
 
     }
 
-    public static void readIn(String fil) {
+    public void readIn(String fil) {
         try {
             String input = "";
             File file = new File(fil);
@@ -115,15 +112,13 @@ public class MainMenu extends JFrame {
     }
     
     
-    public static void outputToFile(String outputFileName) throws FileNotFoundException {
+    public void outputToFile(String outputFileName, String score) throws FileNotFoundException, IOException {
         
-        FileOutputStream fos = new FileOutputStream (outputFileName, false);
-        PrintWriter pw = new PrintWriter(fos);
+        PrintWriter pw = new PrintWriter(new FileWriter(outputFileName, true));
         
+        pw.println(score);
         
-        pw.println();
-        pw.println();
-        pw.println("Kaila Billie");
+       
         
         pw.close();
         
