@@ -343,25 +343,36 @@ public class GamePanel extends JPanel implements KeyListener {
 
             } else if (ques.getQuestionType() == 2) {
 
-                String answer;
-                answer = JOptionPane.showInputDialog("Enter answer:");
+                String[] options = new String[]{"OK", "Clue"};
+                int n = JOptionPane.showOptionDialog(null, "Choose an option:", "Question",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[1]);
+                
+                if (n == 0) {
+                    String answer;
+                    answer = JOptionPane.showInputDialog("Enter answer:");
 
-                if (answer.equalsIgnoreCase(ques.ans.levelThreeAnswers.get(0))) {
-                    JOptionPane.showMessageDialog(null, "Correct!");
-                    ques.NextQuestion();
-                    if (ques.getQuestionNumber() != 16) {
-                        randomMaze();
-                        setPoints(getPoints() + 300);
+                    if (answer.equalsIgnoreCase(ques.ans.levelThreeAnswers.get(0))) {
+                        JOptionPane.showMessageDialog(null, "Correct!");
+                        ques.NextQuestion();
+                        if (ques.getQuestionNumber() != 16) {
+                            randomMaze();
+                            setPoints(getPoints() + 300);
+                            statusPanel.setPoints(getPoints());
+                        }
+                    } else {
+                        resetPlayer();
+                        JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
+                        setPoints(getPoints() - 300);
                         statusPanel.setPoints(getPoints());
+
                     }
-                } else {
-                    resetPlayer();
-                    JOptionPane.showMessageDialog(null, "Incorrect", "Wrong Answer", JOptionPane.ERROR_MESSAGE);
-                    setPoints(getPoints() - 300);
-                    statusPanel.setPoints(getPoints());
-
                 }
-
+                
+                if(n == 1){
+                    JOptionPane.showMessageDialog(null, clue.listOfClues.get(ques.getQuestionNumber()-1), "Clue", JOptionPane.PLAIN_MESSAGE);
+                }
+           
             }
         }
     }

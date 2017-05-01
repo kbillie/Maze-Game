@@ -1,32 +1,32 @@
 1
-Clue 1
+Dynamic Memory Allocation (not Static Memory Allocation)
 2
-Clue 2
+Think of how to initialize an extended class in the first line of the constructor of a class
 3  
-Clue 3
+Can you extend more than one interface
 4
-Clue 4
+an Imageicone is an Icone
 5 
-Clue 5
+the contract of a class refers to publicly exposed methods and properties of that class
 6
-Clue 6
+an instance variable is visible in all the methods of a class
 7
-Clue 7
+an abstract class is primarily just a class, with abstract methods in it.
 8
-Clue 8
+You have to know your interfaces for this one.
 9
-Clue 9
+arithmetic operators are +, -, etc.
 10
-Clue 10
+Think of initializing the object you are declaring
 11
-Clue 11
+Think multi forms
 12
-Clue 12
+paper is an item. if paper and item are classes what do we have here
 13
-Clue 13
+You use the new keyword to instantiate it on the runtime heap (not stack)
 14
-Clue 14
+Think inheritance
 15
-Clue 15
+Think Changing
 16
-Clue 16
+This is one of the members of a class.

@@ -44,6 +44,11 @@ public class GameFrame extends JFrame {
 
     JPanel top;
     JPanel center;
+    
+    File scoreFile = new File("highscores.txt");
+    Scanner read;
+    int theHighScore;
+    String theName = "";
 
     public GameFrame() {
 
@@ -124,13 +129,53 @@ public class GameFrame extends JFrame {
             JButton btn = (JButton) e.getSource();
 
             if (btn.getText().equals("Exit")) {
+               
                 try {
-                    String name;
-                    name = JOptionPane.showInputDialog("Enter your name:");
-                    menu.outputToFile("highscores.txt", name.trim() + ": " + gamePanel.getPoints());
-                } catch (IOException ex) {
+                    read = new Scanner(scoreFile);
+                } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                read.next();
+                
+                while(read.hasNext()){
+                    
+                    theName = read.next();
+                    theHighScore = Integer.parseInt(read.next());
+                }
+
+                if(theHighScore < gamePanel.getPoints()) {
+                    theHighScore = gamePanel.getPoints();
+                    JOptionPane.showMessageDialog(null, "You have the new high score");
+                    
+                    try {
+                        String name;
+                        name = JOptionPane.showInputDialog("Enter your name:");
+                        menu.outputToFile("highscores.txt", name.trim() + ": " + theHighScore);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Cureent High Score is: " + theHighScore);
+                    try {
+                        String name;
+                        name = JOptionPane.showInputDialog("Enter your name:");
+                        menu.outputToFile("highscores.txt", name.trim() + ": " + gamePanel.getPoints());
+                    } catch (IOException ex) {
+                        Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+//                try {
+//                    String name;
+//                    name = JOptionPane.showInputDialog("Enter your name:");
+//                    menu.outputToFile("highscores.txt", name.trim() + ": " + theHighScore);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(GameFrame.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                
                 System.exit(0);
             }
 //            if (btn.getText().equals("Next Question")) {

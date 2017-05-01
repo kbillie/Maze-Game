@@ -2,7 +2,7 @@ Level 1 (True/False):
 
 
 1
-The new keyword is used to instantiate activation records on the runtime on the runtime stack. 
+The new keyword is used to instantiate activation records on the runtime stack. 
 False 
 0
 2
@@ -10,7 +10,7 @@ The this() call will invoke the no-arg constructor of a class.
 True
 0
 3  
-A single class can implement several classes.
+A single class can implement several interfaces.
 True
 0
 4
